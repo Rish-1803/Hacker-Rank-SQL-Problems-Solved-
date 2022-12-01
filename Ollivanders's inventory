@@ -1,0 +1,14 @@
+#SQL Problem : Ollivanders's inventory
+-----------------------------------------------------------------------
+SELECT A.ID,B.AGE,A.COINS_NEEDED,A.POWER
+
+FROM WANDS A JOIN WANDS_PROPERTY B
+ON A.CODE = B.CODE
+WHERE B.IS_EVIL = 0 AND 
+A.COINS_NEEDED = ( SELECT MIN(COINS_NEEDED)
+                   FROM WANDS AL JOIN WANDS_PROPERTY BL
+                   ON AL.CODE = BL.CODE 
+                   WHERE A.POWER = AL.POWER
+                   AND B.AGE = BL.AGE 
+                  ) 
+ ORDER BY A.POWER  DESC , B.AGE DESC;
